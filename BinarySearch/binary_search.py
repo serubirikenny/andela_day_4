@@ -5,35 +5,33 @@ class BinarySearch(list):
 		super(BinarySearch, self).__init__(arr)
 
 
-	def search(self,term):
-		lower=0
-		count=0
-		upper=self.length
-		found=False
-		found_data={}
-		
-		if term==self[0] or term==self[-1]:
-			return {"count":count,"index":self.index(term)}
-		else:
-			while lower<upper or lower !=upper and not found:
-				needle=lower+(upper-lower)//2
-				value=self[needle]
-								
-				if term==value:
-					found_data["index"]=needle
-					found_data["count"]=count
-					found=True
-					break
+	def search(self, term):
+		found, index = False, 0
 
-				elif term>value:
-					if needle==lower:
-						break
-					lower=needle
-					count+=1
-				elif term<value:
-					upper=needle
-					count+=1
+		first = 0
+		last = len(self) - 1
 
-		if not found:
-			return {"count":count,"index":-1}
-		return found_data
+		count = 0
+
+		if term == self[first]:
+			found, index = True, first
+
+		elif term == self[last]:
+			found, index = True, last
+
+		if term not in self:
+			found, index = True, -1
+
+		while first <= last and not found:
+			half = (first + last) // 2
+			if self[half] == term:
+				found, index = True, half
+
+			else:
+				count += 1
+				if term < self[half]:
+					last = half - 1
+				else:
+					first = half + 1
+
+		return {'count': count, 'index': index}

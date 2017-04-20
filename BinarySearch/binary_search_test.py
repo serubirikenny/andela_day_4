@@ -163,6 +163,3 @@ class BinarySearchTest(unittest.TestCase):
             search3['index'],
             msg='should return {count: 3, index: -1} for 10000'
         )
-
-err=BinarySearch(20, 2)
-print(err.search(33))
